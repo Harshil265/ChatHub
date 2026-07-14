@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ChatHub</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="chat.css">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+</head>
+
+<body>
+
+    <div class="container">
+
+        <!-- Sidebar -->
+        <div class="sidebar">
+
+            <div class="logo">
+                <h2>💬 ChatHub</h2>
+            </div>
+
+
+
+            <div class="menu">
+
+                <div class="menu-item active">
+                    <i class="fa-solid fa-house"></i>
+                    <span>Home</span>
+                </div>
+
+                <div class="menu-item">
+                    <i class="fa-solid fa-user-group"></i>
+                    <span>Groups</span>
+                </div>
+
+                <div class="menu-item" onclick="window.location.href='settings.html'">
+                    <i class="fa-solid fa-gear"></i>
+                    <span>Settings</span>
+                </div>
+
+                <div class="menu-item" id="logoutBtn">
+                    <i class="fa-solid fa-right-from-bracket"></i>
+                    <span>Logout</span>
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- Friend List -->
+
+        <div class="friends-panel">
+
+            <div class="search">
+
+                <input type="text" placeholder="Search Friends...">
+
+                <i class="fa-solid fa-magnifying-glass"></i>
+
+            </div>
+
+            <!-- Friends will be added automatically -->
+            <div id="friendsList"></div>
+
+        </div>
+
+        <!-- Chat Area -->
+
+        <div class="chat-area">
+
+            <!-- Chat Header -->
+
+            <div class="chat-header">
+                <div class="chat-user">
+
+                    <img id="chatImage" src="https://i.pravatar.cc/60?img=12">
+
+                    <div>
+
+                        <h3 id="chatTitle">Select a Friend</h3>
+
+                        <p id="chatStatus">Offline</p>
+
+                        <p id="typingStatus" class="typing-status"></p>
+
+                    </div>
+
+                </div>
+
+                <div class="chat-icons">
+
+                    <i class="fa-solid fa-phone"></i>
+
+                    <i class="fa-solid fa-video"></i>
+
+                    <i class="fa-solid fa-circle-info"></i>
+
+                </div>
+
+            </div>
+
+            <!-- Chat Body -->
+
+            <div class="chat-body">
+
+                <div class="message received">
+
+                    Hey Harshil 👋
+
+                </div>
+
+                <div class="message sent">
+
+                    Hello Rahul 😄
+
+                </div>
+
+                <div class="message received">
+
+                    How are you?
+
+                </div>
+
+                <div class="message sent">
+
+                    I'm good. Working on my chat app.
+
+                </div>
+
+                <div class="message received">
+
+                    Awesome! 🚀
+
+                </div>
+
+            </div>
+
+            <!-- Contact Info Panel -->
+
+            <div class="contact-info">
+
+                <button class="close-info">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+                <img id="info-img" src="https://i.pravatar.cc/120?img=12">
+
+                <h2 id="info-name">Rahul</h2>
+
+                <p id="info-status">🟢 Online</p>
+
+                <hr>
+
+                <div class="info-item">
+                    <h4>Email</h4>
+                    <p id="info-email"></p>
+                </div>
+
+                <div class="info-item">
+                    <h4>Phone</h4>
+                    <p id="info-phone"></p>
+                </div>
+
+            </div>
+
+            <!-- Chat Footer -->
+
+            <div class="chat-footer">
+
+                <button class="icon-btn">
+
+                    <i class="fa-regular fa-face-smile"></i>
+
+                </button>
+
+                <button class="icon-btn">
+
+                    <i class="fa-solid fa-paperclip"></i>
+
+                </button>
+
+                <input id="messageInput" type="text" placeholder="Type a message...">
+
+                <button id="sendBtn" class="send-btn">
+
+                    <i class="fa-solid fa-paper-plane"></i>
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div id="logoutPopup" class="logout-popup">
+
+        <div class="logout-card">
+
+            <i class="fa-solid fa-right-from-bracket"></i>
+
+            <h2>Logout</h2>
+
+            <p>Are you sure you want to logout from your ChatHub account?</p>
+
+            <div class="logout-buttons">
+
+                <button id="cancelLogout">Cancel</button>
+
+                <button id="confirmLogout">Logout</button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    </div>
+
+    <script>
+        if (!localStorage.getItem("token")) {
+            window.location.href = "login.html";
+        }
+    </script>
+
+    <script src="http://localhost:5000/socket.io/socket.io.js"></script>
+    <script src="chat.js"></script>
+
+</body>
+
+</html>

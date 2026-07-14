@@ -1,0 +1,370 @@
+// ==========================================
+// SETTINGS.JS (PART 1)
+// ==========================================
+
+// ==========================================
+// JWT TOKEN
+// ==========================================
+
+const token = localStorage.getItem("token");
+const API_URL = "http://localhost:5000";
+
+if (!token) {
+
+    window.location.href = "login.html";
+
+}
+
+let user = null;
+let currentAction = "";
+
+// ==========================================
+// ELEMENTS
+// ==========================================
+
+const profilePic = document.getElementById("profilePic");
+const profileInput = document.getElementById("profileInput");
+
+const changePhotoBtn = document.getElementById("changePhotoBtn");
+
+
+const userName = document.getElementById("userName");
+const userEmail = document.getElementById("userEmail");
+const userMobile = document.getElementById("userMobile");
+
+const editPanel = document.getElementById("editPanel");
+const editTitle = document.getElementById("editTitle");
+const currentValue = document.getElementById("currentValue");
+const newValue = document.getElementById("newValue");
+
+const saveBtn = document.getElementById("saveBtn");
+
+// ==========================================
+// LOAD CURRENT USER
+// ==========================================
+
+loadCurrentUser();
+
+async function loadCurrentUser() {
+
+    try {
+
+        const response = await fetch(
+            API_URL + "/api/users/me",
+            {
+
+                headers: {
+
+                    Authorization: "Bearer " + token
+
+                }
+
+            }
+        );
+
+        const data = await response.json();
+
+        if (!data.success) {
+
+            localStorage.removeItem("token");
+
+            window.location.href = "login.html";
+
+            return;
+
+        }
+
+        user = data.user;
+
+        refreshProfile();
+
+    }
+
+    catch (err) {
+
+        console.log(err);
+
+        alert("Unable to load profile.");
+
+    }
+
+}
+
+// ==========================================
+// REFRESH PROFILE
+// ==========================================
+
+function refreshProfile() {
+
+    userName.textContent = user.name;
+
+    userEmail.textContent = user.email;
+
+    userMobile.textContent = user.mobile;
+
+    if (user.profilePic && user.profilePic.trim() !== "") {
+
+        profilePic.src = API_URL + user.profilePic;
+
+    }
+    else {
+
+        profilePic.src = "https://i.pravatar.cc/150?u=" + user.email;
+
+    }
+
+}
+
+// ==========================================
+// CHANGE PROFILE PHOTO (Preview Only)
+// ==========================================
+
+document.getElementById("changePhotoBtn").onclick = () => {
+
+    profileInput.click();
+
+};
+
+profileInput.addEventListener("change", async () => {
+
+    const file = profileInput.files[0];
+
+    if (!file) return;
+
+    // Preview
+    profilePic.src = URL.createObjectURL(file);
+
+    const formData = new FormData();
+
+    formData.append("profilePic", file);
+
+    try {
+
+        const response = await fetch(
+            API_URL + "/api/users/upload-profile",
+            {
+                method: "POST",
+
+                headers: {
+                    Authorization: "Bearer " + token
+                },
+
+                body: formData
+            }
+        );
+
+        const data = await response.json();
+
+        if (data.success) {
+
+            alert("✅ Profile Picture Updated");
+
+            profilePic.src = API_URL + data.profilePic;
+
+        } else {
+
+            alert(data.message);
+
+        }
+
+    } catch (err) {
+
+        console.log(err);
+
+        alert("Upload Failed");
+
+    }
+
+});
+
+// ==========================================
+// CHANGE NAME
+// ==========================================
+
+document.getElementById("changeNameBtn").onclick = () => {
+
+    if (!user) return;
+
+    editPanel.style.display = "block";
+
+    currentAction = "name";
+
+    editTitle.textContent = "Change Name";
+
+    currentValue.textContent = "Current Name : " + user.name;
+
+    newValue.type = "text";
+
+    newValue.value = "";
+
+    newValue.placeholder = "Enter New Name";
+
+};
+
+// ==========================================
+// CHANGE EMAIL
+// ==========================================
+
+document.getElementById("changeEmailBtn").onclick = () => {
+
+    if (!user) return;
+
+    editPanel.style.display = "block";
+
+    currentAction = "email";
+
+    editTitle.textContent = "Change Email";
+
+    currentValue.textContent = "Current Email : " + user.email;
+
+    newValue.type = "email";
+
+    newValue.value = "";
+
+    newValue.placeholder = "Enter New Email";
+
+};
+
+// ==========================================
+// CHANGE MOBILE
+// ==========================================
+
+document.getElementById("changeMobileBtn").onclick = () => {
+
+    if (!user) return;
+
+    editPanel.style.display = "block";
+
+    currentAction = "mobile";
+
+    editTitle.textContent = "Change Mobile Number";
+
+    currentValue.textContent = "Current Mobile : " + user.mobile;
+
+    newValue.type = "text";
+
+    newValue.value = "";
+
+    newValue.placeholder = "Enter New Mobile Number";
+
+};
+
+// ==========================================
+// CHANGE PASSWORD
+// ==========================================
+
+document.getElementById("changePasswordBtn").onclick = () => {
+
+    editPanel.style.display = "block";
+
+    currentAction = "password";
+
+    editTitle.textContent = "Change Password";
+
+    currentValue.textContent = "";
+
+    newValue.type = "password";
+
+    newValue.value = "";
+
+    newValue.placeholder = "Enter New Password";
+
+};
+
+// ==========================================
+// SAVE BUTTON
+// ==========================================
+
+saveBtn.onclick = () => {
+
+    const value = newValue.value.trim();
+
+    if (value === "") {
+
+        alert("Please enter a value.");
+
+        return;
+
+    }
+
+    updateProfile(currentAction, value);
+
+};
+
+// ==========================================
+// BACK BUTTON
+// ==========================================
+
+document.getElementById("backBtn").onclick = () => {
+
+    window.location.href = "index.html";
+
+};
+
+
+
+// ==========================================
+// UPDATE PROFILE
+// ==========================================
+
+async function updateProfile(field, value) {
+
+    try {
+
+        const response = await fetch
+            (API_URL + "/api/users/update-profile",
+                {
+
+                    method: "PUT",
+
+                    headers: {
+
+                        "Content-Type": "application/json",
+
+                        Authorization: "Bearer " + token
+
+                    },
+
+                    body: JSON.stringify({
+
+                        field,
+
+                        value
+
+                    })
+
+                }
+
+            );
+
+        const data = await response.json();
+
+        if (!data.success) {
+
+            alert(data.message);
+
+            return;
+
+        }
+
+        user = data.user;
+
+        refreshProfile();
+
+        editPanel.style.display = "none";
+
+        newValue.value = "";
+
+        alert(data.message);
+
+    }
+
+    catch (err) {
+
+        console.log(err);
+
+        alert("Server Error");
+
+    }
+
+}

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Settings</title>
+
+    <link rel="stylesheet" href="settings.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
+</head>
+
+<body>
+
+    <div class="settings-container">
+
+        <div class="card">
+
+            <!-- Profile Picture -->
+            <img id="profilePic" src="https://i.pravatar.cc/150" class="profile-image">
+
+            <input type="file" id="profileInput" accept="image/*" hidden>
+
+            <h2 id="userName">Loading...</h2>
+
+            <div class="user-details">
+
+                <p>
+                    <strong>Email:</strong>
+                    <span id="userEmail"></span>
+                </p>
+
+                <p>
+                    <strong>Mobile:</strong>
+                    <span id="userMobile"></span>
+                </p>
+
+            </div>
+
+            <hr>
+
+            <button id="changePhotoBtn">
+                📷 Change Profile Picture
+            </button>
+
+            <button id="changeNameBtn">
+                👤 Change Name
+            </button>
+
+            <button id="changeEmailBtn">
+                📧 Change Email
+            </button>
+
+            <button id="changeMobileBtn">
+                📱 Change Mobile
+            </button>
+
+            <button id="changePasswordBtn">
+                🔒 Change Password
+            </button>
+
+            <button id="backBtn">
+                ⬅ Back
+            </button>
+
+        </div>
+
+        <hr>
+        <div id="editPanel" class="edit-panel">
+
+            <h3 id="editTitle">Edit</h3>
+
+            <p id="currentValue"></p>
+
+            <input type="text" id="newValue" placeholder="Enter New Value">
+
+            <button id="saveBtn">
+                Change
+            </button>
+
+        </div>
+        <hr>
+
+    </div>
+
+    <script src="settings.js"></script>
+
+</body>
+
+</html>
