@@ -39,8 +39,7 @@ async function register() {
 
     try {
 
-        const response = await fetch("https://chat-app-uiip.onrender.com
-/api/auth/register", {
+        const response = await fetch("https://chat-app-uiip.onrender.com/api/auth/register", {
 
             method: "POST",
 
