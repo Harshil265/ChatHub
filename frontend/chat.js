@@ -1,5 +1,4 @@
-const API_URL = "https://chat-app-uiip.onrender.com
-";
+const API_URL = "https://chat-app-uiip.onrender.com";
 
 const token = localStorage.getItem("token");
 
@@ -113,8 +112,7 @@ async function loadCurrentUser() {
 
 }
 
-const socket = io("https://chat-app-uiip.onrender.com
-");
+const socket = io("https://chat-app-uiip.onrender.com");
 
 
 socket.on("connect", () => {
