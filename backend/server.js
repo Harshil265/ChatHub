@@ -165,7 +165,11 @@ const PORT = process.env.PORT || 5000;
 
 async function startServer() {
     try {
+       console.log("STEP 11 - before connectDB");
+
         await connectDB();
+
+        console.log("STEP 12 - after connectDB");
 
         server.listen(PORT, () => {
             console.log(`🚀 Server running on port ${PORT}`);
