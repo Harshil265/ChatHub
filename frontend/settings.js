@@ -1,11 +1,3 @@
-// ==========================================
-// SETTINGS.JS (PART 1)
-// ==========================================
-
-// ==========================================
-// JWT TOKEN
-// ==========================================
-
 const token = localStorage.getItem("token");
 const API_URL = " https://chat-app-uiip.onrender.com
 ";
@@ -18,10 +10,6 @@ if (!token) {
 
 let user = null;
 let currentAction = "";
-
-// ==========================================
-// ELEMENTS
-// ==========================================
 
 const profilePic = document.getElementById("profilePic");
 const profileInput = document.getElementById("profileInput");
@@ -39,10 +27,6 @@ const currentValue = document.getElementById("currentValue");
 const newValue = document.getElementById("newValue");
 
 const saveBtn = document.getElementById("saveBtn");
-
-// ==========================================
-// LOAD CURRENT USER
-// ==========================================
 
 loadCurrentUser();
 
@@ -91,10 +75,6 @@ async function loadCurrentUser() {
 
 }
 
-// ==========================================
-// REFRESH PROFILE
-// ==========================================
-
 function refreshProfile() {
 
     userName.textContent = user.name;
@@ -115,10 +95,6 @@ function refreshProfile() {
     }
 
 }
-
-// ==========================================
-// CHANGE PROFILE PHOTO (Preview Only)
-// ==========================================
 
 document.getElementById("changePhotoBtn").onclick = () => {
 
@@ -178,10 +154,6 @@ profileInput.addEventListener("change", async () => {
 
 });
 
-// ==========================================
-// CHANGE NAME
-// ==========================================
-
 document.getElementById("changeNameBtn").onclick = () => {
 
     if (!user) return;
@@ -201,10 +173,6 @@ document.getElementById("changeNameBtn").onclick = () => {
     newValue.placeholder = "Enter New Name";
 
 };
-
-// ==========================================
-// CHANGE EMAIL
-// ==========================================
 
 document.getElementById("changeEmailBtn").onclick = () => {
 
@@ -226,10 +194,6 @@ document.getElementById("changeEmailBtn").onclick = () => {
 
 };
 
-// ==========================================
-// CHANGE MOBILE
-// ==========================================
-
 document.getElementById("changeMobileBtn").onclick = () => {
 
     if (!user) return;
@@ -250,10 +214,6 @@ document.getElementById("changeMobileBtn").onclick = () => {
 
 };
 
-// ==========================================
-// CHANGE PASSWORD
-// ==========================================
-
 document.getElementById("changePasswordBtn").onclick = () => {
 
     editPanel.style.display = "block";
@@ -272,10 +232,6 @@ document.getElementById("changePasswordBtn").onclick = () => {
 
 };
 
-// ==========================================
-// SAVE BUTTON
-// ==========================================
-
 saveBtn.onclick = () => {
 
     const value = newValue.value.trim();
@@ -292,21 +248,11 @@ saveBtn.onclick = () => {
 
 };
 
-// ==========================================
-// BACK BUTTON
-// ==========================================
-
 document.getElementById("backBtn").onclick = () => {
 
     window.location.href = "index.html";
 
 };
-
-
-
-// ==========================================
-// UPDATE PROFILE
-// ==========================================
 
 async function updateProfile(field, value) {
 
