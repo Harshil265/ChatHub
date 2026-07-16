@@ -7,7 +7,8 @@
 // CONFIG
 // =========================================
 
-const API_URL = "http://localhost:5000";
+const API_URL = " https://chat-app-uiip.onrender.com
+";
 
 // =========================================
 // TOKEN
@@ -140,7 +141,8 @@ async function loadCurrentUser() {
 // SOCKET.IO
 // ===============================
 
-const socket = io("http://localhost:5000");
+const socket = io(" https://chat-app-uiip.onrender.com
+");
 
 
 socket.on("connect", () => {
