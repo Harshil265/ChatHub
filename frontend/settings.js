@@ -1,5 +1,5 @@
 const token = localStorage.getItem("token");
-const API_URL = " https://chat-app-uiip.onrender.com
+const API_URL = "https://chat-app-uiip.onrender.com
 ";
 
 if (!token) {
