@@ -106,6 +106,8 @@ const loginUser = async (req, res) => {
             });
 
         }
+        user.isLoggedIn = true;
+        await user.save();
 
         const token = jwt.sign(
 
@@ -173,6 +175,10 @@ const logoutUser = async (req, res) => {
             });
 
         }
+        user.isLoggedIn = false;
+        user.isOnline = false;
+
+        await user.save();
 
         res.json({
 
