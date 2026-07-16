@@ -48,9 +48,6 @@ const io = new Server(server, {
 
 });
 app.set("io", io);
-
-
-// Middleware
 app.use(cors());
 app.use(express.json());
 
@@ -60,10 +57,6 @@ app.use("/api/users", userRoutes);
 app.use("/api/messages", messageRoutes);
 app.use("/uploads", express.static("uploads"));
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
-
-// ===============================
-// ONLINE USERS
-// ===============================
 
 const onlineUsers = new Map();
 
@@ -77,9 +70,6 @@ io.on("connection", (socket) => {
 
     });
 
-    // ===========================
-    // User Setup
-    // ===========================
     socket.on("setup", async (userId) => {
 
         console.log("🟢 User Online:", userId);
@@ -97,10 +87,7 @@ io.on("connection", (socket) => {
         io.emit("onlineUsers", Array.from(onlineUsers.keys()));
 
     });
-
-    // ===========================
-    // Typing
-    // ===========================
+    
     socket.on("typing", (data) => {
 
         console.log("⌨️ Typing Room:", data.receiver);
@@ -111,18 +98,12 @@ io.on("connection", (socket) => {
 
     });
 
-    // ===========================
-    // Stop Typing
-    // ===========================
     socket.on("stopTyping", (data) => {
 
         socket.to(data.receiver).emit("hideTyping");
 
     });
 
-    // ===========================
-    // Disconnect
-    // ===========================
     socket.on("disconnect", async () => {
 
         console.log("❌ Socket Disconnected:", socket.id);
