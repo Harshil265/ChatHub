@@ -7,7 +7,8 @@
 // ==========================================
 
 const token = localStorage.getItem("token");
-const API_URL = "http://localhost:5000";
+const API_URL = " https://chat-app-uiip.onrender.com
+";
 
 if (!token) {
 
