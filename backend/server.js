@@ -26,8 +26,6 @@ const io = new Server(server, {
 });
 app.set("io", io);
 
-// Connect Database
-connectDB();
 
 // Middleware
 app.use(cors());
@@ -140,11 +138,19 @@ app.get("/", (req, res) => {
     res.send("🚀 ChatHub Backend is Running!");
 });
 
-const PORT = 5000;
+const PORT = process.env.PORT || 5000;
 
+async function startServer() {
+    try {
+        await connectDB();
 
-server.listen(PORT, () => {
+        server.listen(PORT, () => {
+            console.log(`🚀 Server running on port ${PORT}`);
+        });
+    } catch (err) {
+        console.error("❌ Failed to start server:", err);
+        process.exit(1);
+    }
+}
 
-    console.log(`🚀 Server running on http://localhost:${PORT}`);
-
-});
+startServer();
