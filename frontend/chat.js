@@ -1,18 +1,5 @@
-// =========================================
-// CHATHUB - chat.js (PART 1)
-// Authentication + Friend List
-// =========================================
-
-// =========================================
-// CONFIG
-// =========================================
-
 const API_URL = " https://chat-app-uiip.onrender.com
 ";
-
-// =========================================
-// TOKEN
-// =========================================
 
 const token = localStorage.getItem("token");
 
@@ -20,20 +7,12 @@ if (!token) {
     window.location.href = "login.html";
 }
 
-// =========================================
-// GLOBAL VARIABLES
-// =========================================
-
 let currentUser = null;
 let currentFriend = null;
 let users = [];
 let onlineUsers = [];
 let lastDate = "";
 const drafts = {};
-
-// =========================================
-// DOM ELEMENTS
-// =========================================
 
 const friendsList = document.getElementById("friendsList");
 
@@ -87,9 +66,6 @@ messageInput.addEventListener("input", () => {
     }, 10000);
 
 });
-// =========================================
-// LOAD CURRENT USER
-// =========================================
 
 async function loadCurrentUser() {
 
@@ -136,10 +112,6 @@ async function loadCurrentUser() {
     }
 
 }
-
-// ===============================
-// SOCKET.IO
-// ===============================
 
 const socket = io(" https://chat-app-uiip.onrender.com
 ");
@@ -208,10 +180,6 @@ socket.on("hideTyping", () => {
 
 });
 
-// =========================================
-// LOAD ALL USERS
-// =========================================
-
 async function loadUsers() {
 
     try {
@@ -251,10 +219,6 @@ async function loadUsers() {
     }
 
 }
-
-// =========================================
-// DISPLAY FRIEND LIST
-// =========================================
 
 function displayUsers() {
 
@@ -365,9 +329,6 @@ function displayUsers() {
     }
 
 }
-// =========================================
-// UPDATE CHAT HEADER
-// =========================================
 
 function updateChatHeader() {
 
@@ -388,9 +349,6 @@ function updateChatHeader() {
 
 }
 
-// =========================================
-// LOAD CONVERSATION
-// =========================================
 function formatMessageDate(date) {
 
     const msgDate = new Date(date);
@@ -505,10 +463,6 @@ async function loadMessages() {
 
 }
 
-// =========================================
-// DISPLAY MESSAGES
-// =========================================
-
 function displayMessages(messages) {
 
     chatBody.innerHTML = "";
@@ -544,10 +498,6 @@ function displayMessages(messages) {
     }, 100);
 
 }
-
-// =========================================
-// SEND MESSAGE
-// =========================================
 
 async function sendMessage() {
 
@@ -620,10 +570,6 @@ async function sendMessage() {
 
 }
 
-// =========================================
-// CONTACT INFO PANEL
-// =========================================
-
 const infoPanel = document.querySelector(".contact-info");
 
 const infoBtn = document.querySelector(".fa-circle-info");
@@ -641,9 +587,7 @@ const infoEmail = document.getElementById("info-email");
 const infoPhone = document.getElementById("info-phone");
 
 
-// =========================================
-// LOAD CONTACT INFO
-// =========================================
+
 
 function loadContactInfo() {
 
@@ -667,10 +611,6 @@ infoImg.src =
 }
 
 
-// =========================================
-// OPEN CONTACT PANEL
-// =========================================
-
 infoBtn.addEventListener("click", () => {
 
     if (!currentFriend) return;
@@ -682,19 +622,12 @@ infoBtn.addEventListener("click", () => {
 });
 
 
-// =========================================
-// CLOSE CONTACT PANEL
-// =========================================
 
 closeInfoBtn.addEventListener("click", () => {
 
     infoPanel.classList.remove("open");
 
 });
-
-// =========================================
-// FRIEND SEARCH
-// =========================================
 
 const searchInput = document.querySelector(".search input");
 
@@ -727,15 +660,9 @@ searchInput.addEventListener("keyup", () => {
 
 });
 
-// =========================================
-// CHAT BODY
-// =========================================
 
 const chatBody = document.querySelector(".chat-body");
 
-// =========================================
-// SEND EVENTS
-// =========================================
 
 sendBtn.addEventListener("click", sendMessage);
 
@@ -750,13 +677,6 @@ messageInput.addEventListener("keypress", function (e) {
 
 });
 
-// =========================================
-//  part 4
-// =========================================
-
-// =========================================
-// REFRESH FRIEND STATUS
-// =========================================
 
 setInterval(() => {
 
@@ -768,9 +688,6 @@ setInterval(() => {
 
 }, 90000);
 
-// ===============================
-// LOGOUT
-// ===============================
 
 const logoutBtn = document.getElementById("logoutBtn");
 const logoutPopup = document.getElementById("logoutPopup");
@@ -837,9 +754,5 @@ confirmLogout.addEventListener("click", async () => {
     }
 
 });
-
-// =========================================
-// START APP
-// =========================================
 
 loadCurrentUser();
