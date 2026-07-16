@@ -1,14 +1,36 @@
 console.log("SERVER STARTED");
+console.log("STEP 0");
+
 require("dotenv").config();
+console.log("STEP 1");
+
 const express = require("express");
+console.log("STEP 2");
+
 const cors = require("cors");
+console.log("STEP 3");
+
 const http = require("http");
+console.log("STEP 4");
+
 const { Server } = require("socket.io");
+console.log("STEP 5");
+
 const connectDB = require("./config/db");
+console.log("STEP 6");
+
 const authRoutes = require("./routes/auth");
+console.log("STEP 7");
+
 const userRoutes = require("./routes/users");
+console.log("STEP 8");
+
 const messageRoutes = require("./routes/messageRoutes");
+console.log("STEP 9");
+
 const User = require("./models/User");
+console.log("STEP 10");
+
 const path = require("path");
 
 const app = express();
