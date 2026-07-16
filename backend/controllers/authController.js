@@ -2,9 +2,6 @@ const jwt = require("jsonwebtoken");
 const User = require("../models/User");
 const bcrypt = require("bcrypt");
 
-// ==========================
-// Register User
-// ==========================
 const registerUser = async (req, res) => {
 
     try {
@@ -66,9 +63,7 @@ const registerUser = async (req, res) => {
 
 };
 
-// ==========================
-// Login User
-// ==========================
+
 const loginUser = async (req, res) => {
 
     try {
@@ -111,12 +106,6 @@ const loginUser = async (req, res) => {
             });
 
         }
-
-        // User is now online
-        // user.isOnline = true;
-        // user.isLoggedIn = true;
-
-        // await user.save();
 
         const token = jwt.sign(
 
@@ -167,10 +156,6 @@ const loginUser = async (req, res) => {
 
 };
 
-// ==========================
-// Logout User
-// ==========================
-
 
 const logoutUser = async (req, res) => {
 
@@ -188,11 +173,6 @@ const logoutUser = async (req, res) => {
             });
 
         }
-
-        // user.isOnline = false;
-        // user.isLoggedIn = false;
-
-        // await user.save();
 
         res.json({
 
