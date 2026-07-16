@@ -1,9 +1,5 @@
 const Message = require("../models/Message");
 
-// ======================================
-// Send Message
-// ======================================
-
 const sendMessage = async (req, res) => {
 
     try {
@@ -67,10 +63,6 @@ const sendMessage = async (req, res) => {
     }
 
 };
-
-// ======================================
-// Get Conversation
-// ======================================
 
 const getMessages = async (req, res) => {
 
