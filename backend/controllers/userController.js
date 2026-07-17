@@ -7,11 +7,11 @@ const getAllUsers = async (req, res) => {
 
     try {
 
-       const users = await User.find({
+        const users = await User.find({
 
-       _id: { $ne: req.user.id }
+            _id: { $ne: req.user.id }
 
-      }).select("-password");
+        }).select("-password");
 
         res.status(200).json({
 
@@ -184,10 +184,7 @@ const uploadProfilePicture = async (req, res) => {
 
         const user = await User.findById(req.user.id);
 
-        
-
-        }
-
+    
         const updatedUser = await User.findByIdAndUpdate(
 
             req.user.id,
