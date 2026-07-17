@@ -84,7 +84,7 @@ function refreshProfile() {
 
     if (user.profilePic && user.profilePic.trim() !== "") {
 
-        profilePic.src = API_URL + user.profilePic;
+        profilePic.src = user.profilePic;
 
     }
     else {
@@ -135,7 +135,7 @@ profileInput.addEventListener("change", async () => {
 
             alert("✅ Profile Picture Updated");
 
-            profilePic.src = API_URL + data.profilePic;
+            profilePic.src = user.profilePic;
 
         } else {
 
