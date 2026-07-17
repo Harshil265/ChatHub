@@ -21,11 +21,9 @@ router.get("/me", auth, getCurrentUser);
 // Update profile
 router.put("/update-profile", auth, updateProfile);
 
-router.post(
-    "/upload-profile",
-    auth,
-    upload.single("profilePic"),
-    uploadProfilePicture
-);
+router.post("/upload-profile", (req, res) => {
+    console.log("UPLOAD ROUTE HIT");
+    res.json({ success: true });
+});
 
 module.exports = router;
