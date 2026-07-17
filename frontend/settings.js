@@ -133,9 +133,15 @@ profileInput.addEventListener("change", async () => {
 
         if (data.success) {
 
-            alert("✅ Profile Picture Updated");
+            
+            
+            try{
+            profilePic.src = data.profilePic;
+                }catch(e){
+                    console.log(e);
+                }
 
-            profilePic.src = user.profilePic;
+            alert("✅ Profile Picture Updated");
 
         } else {
 
