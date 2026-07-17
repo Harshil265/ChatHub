@@ -184,27 +184,9 @@ const uploadProfilePicture = async (req, res) => {
 
         const user = await User.findById(req.user.id);
 
-        // Delete old profile picture
-        if (
-            user.profilePic &&
-            user.profilePic.startsWith("/uploads/profile/")
-        ) {
-
-            const oldImage = path.join(
-                __dirname,
-                "..",
-                user.profilePic
-            );
-
-            if (fs.existsSync(oldImage)) {
-
-                fs.unlinkSync(oldImage);
-
-            }
+        
 
         }
-
-        const imagePath = "/uploads/profile/" + req.file.filename;
 
         const updatedUser = await User.findByIdAndUpdate(
 
@@ -212,7 +194,7 @@ const uploadProfilePicture = async (req, res) => {
 
             {
 
-                profilePic: imagePath
+                profilePic: req.file.path
 
             },
 
