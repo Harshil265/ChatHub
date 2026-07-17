@@ -170,6 +170,8 @@ const getCurrentUser = async (req, res) => {
 const uploadProfilePicture = async (req, res) => {
 
     try {
+         console.log("uploadProfilePicture called");
+        console.log(req.file);
 
         if (!req.file) {
 
