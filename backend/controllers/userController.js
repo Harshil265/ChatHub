@@ -176,11 +176,8 @@ const uploadProfilePicture = async (req, res) => {
         if (!req.file) {
 
             return res.status(400).json({
-
                 success: false,
-
                 message: "No image uploaded"
-
             });
 
         }
@@ -190,9 +187,7 @@ const uploadProfilePicture = async (req, res) => {
 
                 {
                     folder: "ChatHub_Profile",
-
                     resource_type: "image"
-
                 },
 
                 async (error, result) => {
@@ -200,46 +195,78 @@ const uploadProfilePicture = async (req, res) => {
                     if (error) {
 
                         console.error(
-                            "CLOUDINARY ERROR:",
+                            "❌ CLOUDINARY ERROR:",
                             error
                         );
 
                         return res.status(500).json({
 
                             success: false,
-
                             message: error.message
 
                         });
 
                     }
 
-                    const updatedUser =
-                        await User.findByIdAndUpdate(
+                    try {
 
-                            req.user.id,
+                        const updatedUser =
+                            await User.findByIdAndUpdate(
 
-                            {
-                                profilePic: result.secure_url
-                            },
+                                req.user.id,
 
-                            {
-                                new: true
-                            }
+                                {
+                                    profilePic:
+                                        result.secure_url
+                                },
 
+                                {
+                                    new: true
+                                }
+
+                            );
+
+                        if (!updatedUser) {
+
+                            return res.status(404).json({
+
+                                success: false,
+                                message:
+                                    "User not found"
+
+                            });
+
+                        }
+
+                        return res.status(200).json({
+
+                            success: true,
+
+                            message:
+                                "Profile picture updated successfully",
+
+                            profilePic:
+                                updatedUser.profilePic
+
+                        });
+
+                    } catch (dbError) {
+
+                        console.error(
+                            "❌ DATABASE ERROR:",
+                            dbError
                         );
 
-                    res.status(200).json({
+                        return res.status(500).json({
 
-                        success: true,
+                            success: false,
 
-                        message:
-                            "Profile picture updated successfully",
+                            message:
+                                dbError.message
 
-                        profilePic:
-                            updatedUser.profilePic
+                        });
 
-                    });
+                    }
 
                 }
 
@@ -249,16 +276,14 @@ const uploadProfilePicture = async (req, res) => {
             .createReadStream(req.file.buffer)
             .pipe(uploadStream);
 
-    }
-
-    catch (error) {
+    } catch (error) {
 
         console.error(
-            "UPLOAD ERROR:",
+            "❌ UPLOAD ERROR:",
             error
         );
 
-        res.status(500).json({
+        return res.status(500).json({
 
             success: false,
 
@@ -269,6 +294,7 @@ const uploadProfilePicture = async (req, res) => {
     }
 
 };
+
 module.exports = {
 
     getAllUsers,
