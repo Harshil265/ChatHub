@@ -173,36 +173,30 @@ const uploadProfilePicture = async (req, res) => {
 
     try {
 
-        console.log("UPLOAD CONTROLLER HIT");
-
         if (!req.file) {
 
             return res.status(400).json({
-
                 success: false,
-
                 message: "No image uploaded"
-
             });
 
         }
 
-        console.log("Cloudinary file:", req.file);
+        console.log("FILE FROM CLOUDINARY:", req.file);
 
-        const updatedUser =
-            await User.findByIdAndUpdate(
+        const updatedUser = await User.findByIdAndUpdate(
 
-                req.user.id,
+            req.user.id,
 
-                {
-                    profilePic: req.file.path
-                },
+            {
+                profilePic: req.file.path
+            },
 
-                {
-                    new: true
-                }
+            {
+                new: true
+            }
 
-            );
+        );
 
         res.status(200).json({
 
@@ -218,10 +212,7 @@ const uploadProfilePicture = async (req, res) => {
 
     catch (error) {
 
-        console.error(
-            "UPLOAD CONTROLLER ERROR:",
-            error
-        );
+        console.error("UPLOAD ERROR:", error);
 
         res.status(500).json({
 
