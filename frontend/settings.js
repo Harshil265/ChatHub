@@ -105,9 +105,11 @@ profileInput.addEventListener("change", async () => {
 
     const file = profileInput.files[0];
 
-    if (!file) return;
+    if (!file) {
+        return;
+    }
 
-    // Preview
+    // Show preview immediately
     profilePic.src = URL.createObjectURL(file);
 
     const formData = new FormData();
@@ -129,31 +131,64 @@ profileInput.addEventListener("change", async () => {
             }
         );
 
-        const data = await response.json();
+        const contentType =
+            response.headers.get("content-type");
 
-        if (data.success) {
+        // Check if server returned JSON
+        if (
+            !contentType ||
+            !contentType.includes("application/json")
+        ) {
 
-            
-            
-            try{
-            profilePic.src = data.profilePic;
-                }catch(e){
-                    console.log(e);
-                }
+            const errorText =
+                await response.text();
 
-            alert("✅ Profile Picture Updated");
+            console.error(
+                "SERVER ERROR:",
+                errorText
+            );
 
-        } else {
-
-            alert(data.message);
+            throw new Error(
+                "Server returned non-JSON response. Status: " +
+                response.status
+            );
 
         }
 
-    } catch (err) {
+        const data =
+            await response.json();
 
-        console.log(err);
+        if (data.success) {
 
-        alert("Upload Failed");
+            // Cloudinary URL from backend
+            profilePic.src =
+                data.profilePic;
+
+            alert(
+                "✅ Profile Picture Updated"
+            );
+
+        } else {
+
+            alert(
+                data.message ||
+                "Upload failed"
+            );
+
+        }
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "UPLOAD ERROR:",
+            error
+        );
+
+        alert(
+            "❌ Upload Failed"
+        );
 
     }
 
