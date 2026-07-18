@@ -28,6 +28,18 @@ let typing = false;
 
 let typingTimeout;
 
+function getProfileImage(user, size = 60) {
+
+    if (user.profilePic && user.profilePic.trim() !== "") {
+
+        return user.profilePic;
+
+    }
+
+    return `https://i.pravatar.cc/${size}?u=${user.email}`;
+
+}
+
 messageInput.addEventListener("input", () => {
 
     if (!currentFriend) return;
