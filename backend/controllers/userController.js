@@ -173,117 +173,57 @@ const uploadProfilePicture = async (req, res) => {
 
     try {
 
+        console.log("UPLOAD CONTROLLER HIT");
+
         if (!req.file) {
 
             return res.status(400).json({
+
                 success: false,
+
                 message: "No image uploaded"
+
             });
 
         }
 
-        const uploadStream =
-            cloudinary.uploader.upload_stream(
+        console.log("Cloudinary file:", req.file);
+
+        const updatedUser =
+            await User.findByIdAndUpdate(
+
+                req.user.id,
 
                 {
-                    folder: "ChatHub_Profile",
-                    resource_type: "image"
+                    profilePic: req.file.path
                 },
 
-                async (error, result) => {
-
-                    if (error) {
-
-                        console.error(
-                            "❌ CLOUDINARY ERROR:",
-                            error
-                        );
-
-                        return res.status(500).json({
-
-                            success: false,
-                            message: error.message
-
-                        });
-
-                    }
-
-                    try {
-
-                        const updatedUser =
-                            await User.findByIdAndUpdate(
-
-                                req.user.id,
-
-                                {
-                                    profilePic:
-                                        result.secure_url
-                                },
-
-                                {
-                                    new: true
-                                }
-
-                            );
-
-                        if (!updatedUser) {
-
-                            return res.status(404).json({
-
-                                success: false,
-                                message:
-                                    "User not found"
-
-                            });
-
-                        }
-
-                        return res.status(200).json({
-
-                            success: true,
-
-                            message:
-                                "Profile picture updated successfully",
-
-                            profilePic:
-                                updatedUser.profilePic
-
-                        });
-
-                    } catch (dbError) {
-
-                        console.error(
-                            "❌ DATABASE ERROR:",
-                            dbError
-                        );
-
-                        return res.status(500).json({
-
-                            success: false,
-
-                            message:
-                                dbError.message
-
-                        });
-
-                    }
-
+                {
+                    new: true
                 }
 
             );
 
-        streamifier
-            .createReadStream(req.file.buffer)
-            .pipe(uploadStream);
+        res.status(200).json({
 
-    } catch (error) {
+            success: true,
+
+            message: "Profile picture updated successfully",
+
+            profilePic: updatedUser.profilePic
+
+        });
+
+    }
+
+    catch (error) {
 
         console.error(
-            "❌ UPLOAD ERROR:",
+            "UPLOAD CONTROLLER ERROR:",
             error
         );
 
-        return res.status(500).json({
+        res.status(500).json({
 
             success: false,
 
@@ -294,7 +234,6 @@ const uploadProfilePicture = async (req, res) => {
     }
 
 };
-
 module.exports = {
 
     getAllUsers,
