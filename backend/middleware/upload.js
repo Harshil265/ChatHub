@@ -1,16 +1,56 @@
 const multer = require("multer");
+const { CloudinaryStorage } =
+    require("multer-storage-cloudinary");
 
-const storage = multer.memoryStorage();
+const cloudinary =
+    require("../config/cloudinary");
+
+const storage = new CloudinaryStorage({
+
+    cloudinary: cloudinary,
+
+    params: {
+
+        folder: "ChatHub_Profile",
+
+        allowed_formats: [
+            "jpg",
+            "jpeg",
+            "png",
+            "webp"
+        ]
+
+    }
+
+});
 
 const fileFilter = (req, file, cb) => {
 
-    if (file.mimetype.startsWith("image/")) {
+    console.log(
+        "FILE RECEIVED:",
+        file.originalname
+    );
+
+    console.log(
+        "FILE TYPE:",
+        file.mimetype
+    );
+
+    if (
+        file.mimetype.startsWith("image/")
+    ) {
 
         cb(null, true);
 
-    } else {
+    }
 
-        cb(new Error("Only images are allowed"));
+    else {
+
+        cb(
+            new Error(
+                "Only images are allowed"
+            )
+        );
 
     }
 
