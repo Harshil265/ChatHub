@@ -23,6 +23,10 @@ router.put("/update-profile", auth, updateProfile);
 
 router.post(
     "/upload-profile",
+    (req, res, next) => {
+        console.log("🔥 UPLOAD ROUTE HIT");
+        next();
+    },
     auth,
     upload.single("profilePic"),
     uploadProfilePicture
