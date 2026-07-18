@@ -170,40 +170,37 @@ const getCurrentUser = async (req, res) => {
 const uploadProfilePicture = async (req, res) => {
 
     try {
-         console.log("uploadProfilePicture called");
-        console.log(req.file);
+
+        console.log("UPLOAD CONTROLLER HIT");
+
+        console.log("REQ FILE:", req.file);
+
+        console.log("REQ USER:", req.user);
 
         if (!req.file) {
 
             return res.status(400).json({
-
                 success: false,
-                message: "Please select an image."
-
+                message: "No file uploaded"
             });
 
         }
 
-        const user = await User.findById(req.user.id);
-
-    
         const updatedUser = await User.findByIdAndUpdate(
 
             req.user.id,
 
             {
-
                 profilePic: req.file.path
-
             },
 
             {
-
                 new: true
-
             }
 
         );
+
+        console.log("CLOUDINARY URL:", req.file.path);
 
         res.status(200).json({
 
@@ -219,20 +216,19 @@ const uploadProfilePicture = async (req, res) => {
 
     catch (err) {
 
-        console.log(err);
+        console.error("🔥 UPLOAD ERROR:", err);
 
         res.status(500).json({
 
             success: false,
 
-            message: "Server Error"
+            message: err.message
 
         });
 
     }
 
 };
-
 module.exports = {
 
     getAllUsers,
