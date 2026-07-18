@@ -236,7 +236,9 @@ function displayUsers() {
 
     if (users.length === 0) {
 
-        friendsList.innerHTML = "<p style='padding:20px;'>No users found.</p>";
+        friendsList.innerHTML =
+            "<p style='padding:20px;'>No users found.</p>";
+
         return;
 
     }
@@ -247,14 +249,26 @@ function displayUsers() {
 
         friend.className = "friend";
 
-        const isOnline = onlineUsers.includes(user._id);
+        const isOnline =
+            onlineUsers.includes(user._id);
+
+        // Profile image
+        const profileImage =
+            user.profilePic &&
+            user.profilePic.trim() !== ""
+
+                ? user.profilePic
+
+                : "https://i.pravatar.cc/60?u=" +
+                  encodeURIComponent(user.email);
+
 
         friend.innerHTML = `
 
-           <img src="${user.profilePic && user.profilePic !== ""
-                ? API_URL + user.profilePic
-                : "https://i.pravatar.cc/60?u=" + user.email
-            }">
+            <img
+                src="${profileImage}"
+                alt="${user.name}"
+            >
 
             <div>
 
@@ -262,49 +276,75 @@ function displayUsers() {
 
                     <h4>${user.name}</h4>
 
-                    <span class="status ${isOnline ? "online" : "offline"}"></span>
+                    <span
+                        class="status ${
+                            isOnline
+                                ? "online"
+                                : "offline"
+                        }">
+                    </span>
 
                 </div>
 
-                <p>${isOnline ? "🟢 Online" : "⚪ Offline"}</p>
+                <p>
+                    ${
+                        isOnline
+                            ? "🟢 Online"
+                            : "⚪ Offline"
+                    }
+                </p>
 
             </div>
 
         `;
+
 
         friend.addEventListener("click", () => {
 
             // Save current draft
             if (currentFriend) {
 
-                drafts[currentFriend._id] = messageInput.value;
+                drafts[currentFriend._id] =
+                    messageInput.value;
 
             }
 
-            // Open selected chat
+
+            // Select current friend
             currentFriend = user;
 
+
+            // Clear typing indicator
             typingStatus.innerHTML = "";
 
-            typingStatus.style.display = "none";
+            typingStatus.style.display =
+                "none";
 
-            // Restore draft for this chat
-            messageInput.value = drafts[currentFriend._id] || "";
 
-            typingStatus.innerHTML = "";
+            // Restore draft
+            messageInput.value =
+                drafts[currentFriend._id] || "";
 
-            typingStatus.style.display = "none";
 
-            document.querySelectorAll(".friend").forEach(item => {
+            // Remove active class from all friends
+            document
+                .querySelectorAll(".friend")
+                .forEach(item => {
 
-                item.classList.remove("active");
+                    item.classList.remove("active");
 
-            });
+                });
 
+
+            // Add active class
             friend.classList.add("active");
 
+
+            // Close contact info panel
             infoPanel.classList.remove("open");
 
+
+            // Update chat
             updateChatHeader();
 
             loadContactInfo();
@@ -313,7 +353,9 @@ function displayUsers() {
 
         });
 
+
         friendsList.appendChild(friend);
+
 
         // Select first friend automatically
         if (index === 0) {
@@ -326,9 +368,12 @@ function displayUsers() {
 
     });
 
+
+    // Load first friend
     if (currentFriend) {
 
-        messageInput.value = drafts[currentFriend._id] || "";
+        messageInput.value =
+            drafts[currentFriend._id] || "";
 
         updateChatHeader();
 
@@ -353,10 +398,10 @@ function updateChatHeader() {
         : "<span style='color:#999;'>● Offline</span>";
 
     chatImage.src =
-        currentFriend.profilePic && currentFriend.profilePic !== ""
-            ? API_URL + currentFriend.profilePic
-            : "https://i.pravatar.cc/60?u=" + currentFriend.email;
-
+    currentFriend.profilePic &&currentFriend.profilePic.trim() !== ""
+        ? currentFriend.profilePic
+        : "https://i.pravatar.cc/60?u=" +
+          encodeURIComponent(currentFriend.email);
 }
 
 function formatMessageDate(date) {
@@ -603,10 +648,12 @@ function loadContactInfo() {
 
     if (!currentFriend) return;
 infoImg.src =
-    currentFriend.profilePic && currentFriend.profilePic !== ""
-        ? API_URL + currentFriend.profilePic
-        : "https://i.pravatar.cc/120?u=" + currentFriend.email;
-
+    currentFriend.profilePic &&
+    currentFriend.profilePic.trim() !== ""
+        ? currentFriend.profilePic
+        : "https://i.pravatar.cc/120?u=" +
+          encodeURIComponent(currentFriend.email);
+    
     infoName.textContent = currentFriend.name;
 
     infoStatus.textContent =
