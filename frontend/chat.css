@@ -955,7 +955,7 @@ body {
    MOBILE CHAT RESPONSIVE DESIGN
 ===================================== */
 
-@media (max-width: 600px) {
+@media (max-width: 350px) {
 
     body {
         overflow: hidden;
