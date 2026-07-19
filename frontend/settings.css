@@ -213,3 +213,78 @@ button:hover{
 
 }
 
+.edit-panel {
+
+    display: none;
+
+    width: 90%;
+
+    max-width: 400px;
+
+    margin: 20px auto;
+
+    padding: 20px;
+
+    box-sizing: border-box;
+
+}
+
+@media (max-width: 600px) {
+
+    .settings-container {
+
+        width: 100%;
+
+        padding: 15px;
+
+        box-sizing: border-box;
+
+    }
+
+
+    .card {
+
+        width: 100%;
+
+        padding: 20px;
+
+        box-sizing: border-box;
+
+    }
+
+
+    .card button {
+
+        width: 100%;
+
+        margin: 6px 0;
+
+    }
+
+
+    .edit-panel {
+
+        width: 100%;
+
+        padding: 20px;
+
+    }
+
+
+    #newValue {
+
+        width: 100%;
+
+        box-sizing: border-box;
+
+    }
+
+
+    #saveBtn {
+
+        width: 100%;
+
+    }
+
+}
+
