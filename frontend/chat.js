@@ -21,6 +21,19 @@ const chatImage = document.querySelector(".chat-user img");
 const typingStatus = document.getElementById("typingStatus");
 const messageInput = document.getElementById("messageInput");
 const sendBtn = document.getElementById("sendBtn");
+const container =document.querySelector(".container");
+const mobileBackBtn =document.getElementById("mobileBackBtn");
+
+mobileBackBtn.addEventListener(
+    "click",
+    () => {
+
+        container.classList.remove(
+            "chat-open"
+        );
+
+    }
+);
 
 console.log(messageInput);
 
@@ -312,7 +325,8 @@ function displayUsers() {
 
             // Select current friend
             currentFriend = user;
-
+            
+            container.classList.add("chat-open");
 
             // Clear typing indicator
             typingStatus.innerHTML = "";
