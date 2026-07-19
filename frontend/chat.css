@@ -947,87 +947,224 @@ body {
     display: none;
 }
 
+/* =========================================
+   MOBILE RESPONSIVE
+========================================= */
+
 @media (max-width: 768px) {
 
     html,
     body {
+
         width: 100%;
         height: 100%;
+
         margin: 0;
+        padding: 0;
+
         overflow: hidden;
+
     }
+
 
     .container {
+
         width: 100%;
         height: 100vh;
+
+        display: flex;
+
     }
 
-    /* FRIEND LIST SCREEN */
+
+    /* ================================
+       SIDEBAR
+    ================================= */
+
     .sidebar {
-        width: 55px;
-        min-width: 55px;
+
+        width: 64px;
+        min-width: 64px;
+
+        height: 100vh;
+
     }
+
+
+    .logo h2 {
+
+        font-size: 0;
+
+        text-align: center;
+
+    }
+
+
+    .logo h2::before {
+
+        content: "💬";
+
+        font-size: 24px;
+
+    }
+
+
+    .menu-item {
+
+        display: flex;
+
+        justify-content: center;
+        align-items: center;
+
+        padding: 20px 0;
+
+    }
+
 
     .menu-item span {
+
         display: none;
+
     }
+
+
+    .menu-item i {
+
+        font-size: 20px;
+
+    }
+
+
+    /* ================================
+       FRIEND PANEL
+    ================================= */
 
     .friends-panel {
-        width: calc(100% - 55px);
+
+        width: calc(100% - 64px);
+
+        height: 100vh;
+
+        display: block;
+
     }
 
-    /* CHAT SCREEN */
-    .container.chat-open .sidebar,
-    .container.chat-open .friends-panel {
+
+    /* ================================
+       CHAT AREA HIDDEN INITIALLY
+    ================================= */
+
+    .chat-area {
+
         display: none;
+
     }
 
+
+    /* ================================
+       CHAT OPEN
+    ================================= */
+
+    .container.chat-open {
+
+        display: block;
+
+    }
+
+
+    /* Hide sidebar */
+    .container.chat-open .sidebar {
+
+        display: none;
+
+    }
+
+
+    /* Hide friend list */
+    .container.chat-open .friends-panel {
+
+        display: none;
+
+    }
+
+
+    /* Show chat */
     .container.chat-open .chat-area {
+
         display: flex;
-        width: 100vw;
-        height: 100vh;
-        flex-direction: column;
-    }
 
-    .chat-header {
-        flex-shrink: 0;
         width: 100%;
-        height: 65px;
-    }
-
-    .chat-body {
-        flex: 1;
-        width: 100%;
-        overflow-y: auto;
-    }
-
-    .chat-footer {
-        flex-shrink: 0;
-        width: 100%;
-    }
-
-    /* Contact information should be an overlay */
-    .contact-info {
-        position: fixed;
-        top: 0;
-        right: 0;
-
-        width: 85%;
-        max-width: 350px;
         height: 100vh;
 
-        z-index: 1000;
-
-        transform: translateX(100%);
-        transition: transform 0.3s ease;
     }
 
-    .contact-info.open {
-        transform: translateX(0);
-    }
+
+    /* ================================
+       BACK BUTTON
+    ================================= */
 
     .mobile-back-btn {
+
         display: block;
+
+        border: none;
+
+        background: transparent;
+
+        font-size: 20px;
+
+        cursor: pointer;
+
+        margin-right: 10px;
+
+    }
+
+
+    /* ================================
+       CHAT HEADER
+    ================================= */
+
+    .chat-header {
+
+        width: 100%;
+
+        padding: 10px;
+
+    }
+
+
+    /* ================================
+       CHAT BODY
+    ================================= */
+
+    .chat-body {
+
+        flex: 1;
+
+        overflow-y: auto;
+
+    }
+
+
+    /* ================================
+       CHAT FOOTER
+    ================================= */
+
+    .chat-footer {
+
+        width: 100%;
+
+        padding: 8px;
+
+    }
+
+
+    #messageInput {
+
+        min-width: 0;
+
+        flex: 1;
+
     }
 
 }
