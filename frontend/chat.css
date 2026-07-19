@@ -1110,3 +1110,27 @@ body {
     }
 
 }
+
+.mobile-back-btn {
+
+    display: none;
+
+}
+
+@media (max-width: 768px) {
+
+    .mobile-back-btn {
+
+        display: block;
+
+        border: none;
+
+        background: transparent;
+
+        font-size: 20px;
+
+        cursor: pointer;
+
+    }
+
+}
