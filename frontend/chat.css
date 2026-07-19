@@ -957,10 +957,10 @@ body {
     body {
 
         width: 100%;
+
         height: 100%;
 
         margin: 0;
-        padding: 0;
 
         overflow: hidden;
 
@@ -970,53 +970,19 @@ body {
     .container {
 
         width: 100%;
-        height: 100vh;
 
-        display: flex;
+        height: 100vh;
 
     }
 
 
-    /* ================================
-       SIDEBAR
-    ================================= */
+    /* FRIEND LIST */
 
     .sidebar {
 
-        width: 64px;
-        min-width: 64px;
+        width: 55px;
 
-        height: 100vh;
-
-    }
-
-
-    .logo h2 {
-
-        font-size: 0;
-
-        text-align: center;
-
-    }
-
-
-    .logo h2::before {
-
-        content: "💬";
-
-        font-size: 24px;
-
-    }
-
-
-    .menu-item {
-
-        display: flex;
-
-        justify-content: center;
-        align-items: center;
-
-        padding: 20px 0;
+        min-width: 55px;
 
     }
 
@@ -1028,31 +994,16 @@ body {
     }
 
 
-    .menu-item i {
-
-        font-size: 20px;
-
-    }
-
-
-    /* ================================
-       FRIEND PANEL
-    ================================= */
-
     .friends-panel {
 
-        width: calc(100% - 64px);
+        width: calc(100% - 55px);
 
         height: 100vh;
 
-        display: block;
-
     }
 
 
-    /* ================================
-       CHAT AREA HIDDEN INITIALLY
-    ================================= */
+    /* HIDE CHAT BEFORE FRIEND IS SELECTED */
 
     .chat-area {
 
@@ -1061,18 +1012,8 @@ body {
     }
 
 
-    /* ================================
-       CHAT OPEN
-    ================================= */
+    /* WHEN FRIEND IS CLICKED */
 
-    .container.chat-open {
-
-        display: block;
-
-    }
-
-
-    /* Hide sidebar */
     .container.chat-open .sidebar {
 
         display: none;
@@ -1080,7 +1021,6 @@ body {
     }
 
 
-    /* Hide friend list */
     .container.chat-open .friends-panel {
 
         display: none;
@@ -1088,82 +1028,84 @@ body {
     }
 
 
-    /* Show chat */
     .container.chat-open .chat-area {
 
         display: flex;
 
-        width: 100%;
+        width: 100vw;
+
         height: 100vh;
 
-    }
-
-
-    /* ================================
-       BACK BUTTON
-    ================================= */
-
-    .mobile-back-btn {
-
-        display: block;
-
-        border: none;
-
-        background: transparent;
-
-        font-size: 20px;
-
-        cursor: pointer;
-
-        margin-right: 10px;
+        flex-direction: column;
 
     }
 
 
-    /* ================================
-       CHAT HEADER
-    ================================= */
+    /* CHAT HEADER */
 
     .chat-header {
 
+        flex-shrink: 0;
+
         width: 100%;
 
-        padding: 10px;
+        height: 60px;
 
     }
 
 
-    /* ================================
-       CHAT BODY
-    ================================= */
+    /* CHAT MESSAGES */
 
     .chat-body {
 
         flex: 1;
+
+        width: 100%;
 
         overflow-y: auto;
 
     }
 
 
-    /* ================================
-       CHAT FOOTER
-    ================================= */
+    /* MESSAGE INPUT ALWAYS AT BOTTOM */
 
     .chat-footer {
 
-        width: 100%;
+        flex-shrink: 0;
 
-        padding: 8px;
+        width: 100%;
 
     }
 
 
-    #messageInput {
+    /* CONTACT INFO AS OVERLAY */
 
-        min-width: 0;
+    .contact-info {
 
-        flex: 1;
+        position: fixed;
+
+        top: 0;
+
+        right: 0;
+
+        width: 85%;
+
+        max-width: 350px;
+
+        height: 100vh;
+
+        z-index: 1000;
+
+        transform: translateX(100%);
+
+        transition: transform 0.3s ease;
+
+    }
+
+
+    .contact-info.open {
+
+        transform: translateX(0);
 
     }
 
