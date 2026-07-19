@@ -24,17 +24,13 @@ const sendBtn = document.getElementById("sendBtn");
 const container =document.querySelector(".container");
 const mobileBackBtn =document.getElementById("mobileBackBtn");
 
-mobileBackBtn.addEventListener(
-    "click",
-    () => {
+mobileBackBtn.addEventListener("click", () => {
 
-        container.classList.remove(
-            "chat-open"
-        );
+    container.classList.remove("chat-open");
 
-    }
-);
+    infoPanel.classList.remove("open");
 
+});
 console.log(messageInput);
 
 let typing = false;
