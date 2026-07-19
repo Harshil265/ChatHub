@@ -951,339 +951,228 @@ body {
 }
 
 
-/* =====================================================
-   MOBILE LAYOUT
-   Logical breakpoint: 768px
-===================================================== */
+/* =========================================
+   MOBILE WHATSAPP-STYLE CHAT
+   ========================================= */
 
-@media (max-width: 768px) {
+@media (max-width: 600px) {
 
-    html,
-    body {
-        inline-size: 100%;
-        block-size: 100%;
-        overflow: hidden;
-    }
-
-    .container {
-        position: relative;
-        inline-size: 100%;
-        block-size: 100dvh;
-        overflow: hidden;
-    }
-
-
-    /* =================================================
-       INITIAL MOBILE SCREEN
-       SIDEBAR + FRIEND LIST
-    ================================================= */
-
-    .sidebar {
-        position: fixed;
-        inset-block-start: 0;
-        inset-inline-start: 0;
-
-        inline-size: 64px;
-        block-size: 100dvh;
-
-        z-index: 100;
-    }
-
-    .logo h2 {
-        font-size: 0;
-        text-align: center;
-    }
-
-    .logo h2::before {
-        content: "💬";
-        font-size: 24px;
-    }
-
-    .menu-item {
-        justify-content: center;
-        padding-block: 18px;
-        padding-inline: 0;
-    }
-
-    .menu-item span {
-        display: none;
-    }
-
-
-    .friends-panel {
-        position: fixed;
-
-        inset-block-start: 0;
-        inset-inline-start: 64px;
-
-        inline-size: calc(100% - 64px);
-        block-size: 100dvh;
-
-        display: block;
-
-        background: white;
-
-        z-index: 50;
-    }
-
-    .search {
-        padding: 12px;
-    }
-
-    #friendsList {
-        block-size: calc(100dvh - 70px);
-        overflow-y: auto;
-    }
-
-
-    /* =================================================
-       CHAT VIEW
-       HIDDEN INITIALLY
-    ================================================= */
-
+    /* Chat area fills the mobile screen */
     .chat-area {
         position: fixed;
-
         inset: 0;
-
-        inline-size: 100%;
-        block-size: 100dvh;
-
+        width: 100%;
+        height: 100dvh;
         display: none;
-
         flex-direction: column;
-
-        background: white;
-
-        z-index: 200;
+        z-index: 50;
+        background: #fff;
     }
 
-
-    /* =================================================
-       WHEN USER OPENS CHAT
-       WHATSAPP-LIKE MOBILE VIEW
-    ================================================= */
-
-    .container.chat-open .sidebar {
-        display: none;
-    }
-
-    .container.chat-open .friends-panel {
-        display: none;
-    }
-
-    .container.chat-open .chat-area {
+    /* When JavaScript opens the chat */
+    .chat-area.mobile-chat-open {
         display: flex;
     }
 
-
-    /* =================================================
-       CHAT HEADER
-    ================================================= */
-
+    /* Header */
     .chat-header {
-        flex-shrink: 0;
-
-        inline-size: 100%;
-        min-block-size: 60px;
-
-        display: flex;
-        align-items: center;
-
-        padding-block: 8px;
-        padding-inline: 8px;
-    }
-
-
-    /* Back button:
-       hidden by default on desktop,
-       visible only inside mobile chat */
-    .mobile-back-btn {
-        display: flex;
-
-        align-items: center;
-        justify-content: center;
-
-        inline-size: 40px;
-        block-size: 40px;
-
-        flex-shrink: 0;
-
-        border: none;
-        background: transparent;
-
-        font-size: 20px;
-
-        margin-inline-end: 6px;
-    }
-
-
-    .chat-user {
-        min-inline-size: 0;
-        flex: 1;
-
+        height: 64px;
+        min-height: 64px;
+        padding: 8px 12px;
         display: flex;
         align-items: center;
     }
 
-    .chat-user img {
-        inline-size: 42px;
-        block-size: 42px;
-
-        flex-shrink: 0;
-
+    /* Friend profile image */
+    #chatImage {
+        width: 42px;
+        height: 42px;
         border-radius: 50%;
         object-fit: cover;
     }
 
-    .chat-user h3 {
-        max-inline-size: 150px;
-
-        overflow: hidden;
-        white-space: nowrap;
-        text-overflow: ellipsis;
-
-        font-size: 15px;
-    }
-
-
-    /* =================================================
-       CONTACT INFO ICON
-       Keep ONLY the info icon
-    ================================================= */
-
-    .chat-icons {
+    .chat-user {
         display: flex;
-
         align-items: center;
-        justify-content: center;
-
-        flex-shrink: 0;
+        gap: 10px;
+        flex: 1;
+        min-width: 0;
     }
 
-    .chat-icons .fa-phone,
-    .chat-icons .fa-video {
-        display: none;
+    .chat-user h3 {
+        font-size: 16px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
 
-    .chat-icons .fa-circle-info {
-        display: block;
+    .chat-user p {
+        font-size: 12px;
+    }
 
-        font-size: 20px;
+    /* Call, video and info buttons */
+    .chat-icons {
+        display: flex !important;
+        align-items: center;
+        gap: 16px;
+        margin-left: auto;
+    }
 
+    .chat-icons i {
+        display: block !important;
+        font-size: 18px;
         cursor: pointer;
     }
 
-
-    /* =================================================
-       CHAT MESSAGES
-    ================================================= */
-
+    /* Chat body */
     .chat-body {
         flex: 1;
-
-        min-block-size: 0;
-
         overflow-y: auto;
-
-        padding-block: 10px;
-        padding-inline: 10px;
+        padding: 12px;
     }
 
-
-    /* =================================================
-       MESSAGE INPUT
-    ================================================= */
-
+    /* Message input stays at bottom */
     .chat-footer {
-        flex-shrink: 0;
-
-        min-block-size: 60px;
-
+        min-height: 62px;
+        padding: 8px;
         display: flex;
         align-items: center;
-
-        padding-block: 8px;
-        padding-inline: 8px;
     }
 
     .chat-footer input {
-        min-inline-size: 0;
         flex: 1;
+        min-width: 0;
     }
 
-
-    /* =================================================
-       CONTACT INFO
-       HIDDEN UNTIL OPENED
-    ================================================= */
+    /* =====================================
+       CONTACT INFO SMALL ROUNDED PANEL
+       ===================================== */
 
     .contact-info {
-        display: none;
-    }
-
-    .contact-info.open {
-        display: block;
 
         position: absolute;
 
-        inset-block-start: 60px;
-        inset-inline-end: 0;
+        top: 75px;
 
-        inline-size: min(360px, 90%);
-        block-size: calc(100% - 60px);
+        left: 12px;
 
-        z-index: 300;
+        right: 12px;
+
+        width: auto;
+
+        height: auto;
+
+        max-height: calc(100dvh - 100px);
+
+        padding: 20px;
 
         background: white;
 
+        border-radius: 20px;
+
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25);
+
+        z-index: 100;
+
         overflow-y: auto;
 
-        box-shadow: -4px 0 15px rgb(0 0 0 / 15%);
+        transform: scale(0.95);
+
+        opacity: 0;
+
+        pointer-events: none;
+
+        transition: 0.25s ease;
+
     }
 
-}
+    /* Show contact info after clicking info icon */
+    .contact-info.open {
 
+        transform: scale(1);
 
-/* =====================================================
-   SMALL PHONES
-   Logical size: 375px and below
-===================================================== */
+        opacity: 1;
 
-@media (max-width: 375px) {
+        pointer-events: auto;
 
-    .sidebar {
-        inline-size: 56px;
     }
 
-    .friends-panel {
-        inset-inline-start: 56px;
-        inline-size: calc(100% - 56px);
+    /* Contact profile image */
+    #info-img {
+
+        width: 100px;
+
+        height: 100px;
+
+        border-radius: 50%;
+
+        object-fit: cover;
+
+        margin: 10px auto 12px;
+
+        display: block;
+
+        border: 4px solid #2575fc;
+
     }
 
-    .chat-header {
-        min-block-size: 56px;
-        padding-inline: 6px;
+    #info-name {
+
+        text-align: center;
+
+        font-size: 21px;
+
+        margin: 5px 0;
+
     }
 
-    .mobile-back-btn {
-        inline-size: 36px;
-        block-size: 36px;
+    #info-status {
+
+        text-align: center;
+
+        font-size: 13px;
+
     }
 
-    .chat-user img {
-        inline-size: 38px;
-        block-size: 38px;
+    .contact-info hr {
+
+        margin: 15px 0;
+
     }
 
-    .chat-user h3 {
-        max-inline-size: 130px;
-        font-size: 14px;
+    .info-item {
+
+        padding: 10px 12px;
+
+        margin-bottom: 8px;
+
+        border-radius: 12px;
+
+        background: #f5f6f8;
+
     }
 
-    .chat-footer {
-        min-block-size: 56px;
-        padding-inline: 6px;
+    /* Close button */
+    .close-info {
+
+        position: absolute;
+
+        top: 12px;
+
+        right: 12px;
+
+        width: 32px;
+
+        height: 32px;
+
+        border: none;
+
+        border-radius: 50%;
+
+        background: #eeeeee;
+
+        cursor: pointer;
+
     }
 
 }
