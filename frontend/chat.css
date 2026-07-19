@@ -951,41 +951,42 @@ body {
    MOBILE RESPONSIVE
 ========================================= */
 
+/* =================================
+   MOBILE RESPONSIVE
+================================= */
+
 @media (max-width: 768px) {
 
     html,
     body {
 
         width: 100%;
-
         height: 100%;
-
         margin: 0;
+
+    }
+
+    body {
 
         overflow: hidden;
 
     }
 
-
     .container {
 
         width: 100%;
-
         height: 100vh;
 
     }
 
-
-    /* FRIEND LIST */
+    /* Sidebar icons remain visible */
 
     .sidebar {
 
         width: 55px;
-
         min-width: 55px;
 
     }
-
 
     .menu-item span {
 
@@ -993,26 +994,18 @@ body {
 
     }
 
+    /* Friend list remains visible */
 
     .friends-panel {
 
         width: calc(100% - 55px);
-
         height: 100vh;
 
-    }
-
-
-    /* HIDE CHAT BEFORE FRIEND IS SELECTED */
-
-    .chat-area {
-
-        display: none;
+        overflow-y: auto;
 
     }
 
-
-    /* WHEN FRIEND IS CLICKED */
+    /* Chat opens only after clicking friend */
 
     .container.chat-open .sidebar {
 
@@ -1020,28 +1013,24 @@ body {
 
     }
 
-
     .container.chat-open .friends-panel {
 
         display: none;
 
     }
 
-
     .container.chat-open .chat-area {
 
         display: flex;
 
         width: 100vw;
-
         height: 100vh;
 
         flex-direction: column;
 
     }
 
-
-    /* CHAT HEADER */
+    /* Chat header */
 
     .chat-header {
 
@@ -1049,25 +1038,19 @@ body {
 
         width: 100%;
 
-        height: 60px;
-
     }
 
-
-    /* CHAT MESSAGES */
+    /* Messages scroll */
 
     .chat-body {
 
         flex: 1;
 
-        width: 100%;
-
         overflow-y: auto;
 
     }
 
-
-    /* MESSAGE INPUT ALWAYS AT BOTTOM */
+    /* Message input stays at bottom */
 
     .chat-footer {
 
@@ -1077,19 +1060,16 @@ body {
 
     }
 
-
-    /* CONTACT INFO AS OVERLAY */
+    /* Contact info opens over chat */
 
     .contact-info {
 
         position: fixed;
 
         top: 0;
-
         right: 0;
 
         width: 85%;
-
         max-width: 350px;
 
         height: 100vh;
@@ -1100,36 +1080,13 @@ body {
 
         transition: transform 0.3s ease;
 
-    }
+        overflow-y: auto;
 
+    }
 
     .contact-info.open {
 
         transform: translateX(0);
-
-    }
-
-}
-
-.mobile-back-btn {
-
-    display: none;
-
-}
-
-@media (max-width: 768px) {
-
-    .mobile-back-btn {
-
-        display: block;
-
-        border: none;
-
-        background: transparent;
-
-        font-size: 20px;
-
-        cursor: pointer;
 
     }
 
