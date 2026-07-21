@@ -11,9 +11,11 @@ const getAllUsers = async (req, res) => {
 
         const users = await User.find({
 
-            _id: { $ne: req.user.id }
+         _id: { $ne: req.user.id },
 
-        }).select("-password");
+         isLoggedIn: true
+
+       }).select("-password");
 
         res.status(200).json({
 
