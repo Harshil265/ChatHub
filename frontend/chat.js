@@ -241,6 +241,9 @@ async function loadUsers() {
 
 function displayUsers() {
 
+    // Remember which friend is currently selected
+    const selectedFriendId = currentFriend?._id;
+
     friendsList.innerHTML = "";
 
     if (users.length === 0) {
@@ -252,7 +255,7 @@ function displayUsers() {
 
     }
 
-    users.forEach((user, index) => {
+    users.forEach((user) => {
 
         const friend = document.createElement("div");
 
@@ -261,7 +264,7 @@ function displayUsers() {
         const isOnline =
             onlineUsers.includes(user._id);
 
-        // Profile image
+
         const profileImage =
             user.profilePic &&
             user.profilePic.trim() !== ""
@@ -285,32 +288,41 @@ function displayUsers() {
 
                     <h4>${user.name}</h4>
 
-                    <span
-                        class="status ${
-                            isOnline
-                                ? "online"
-                                : "offline"
-                        }">
-                    </span>
+                    <span class="status ${
+                        isOnline
+                            ? "online"
+                            : "offline"
+                    }"></span>
 
                 </div>
 
                 <p>
+
                     ${
                         isOnline
                             ? "🟢 Online"
                             : "⚪ Offline"
                     }
+
                 </p>
 
             </div>
 
         `;
 
+        if (
+            currentFriend &&
+            user._id === selectedFriendId
+        ) {
+
+            friend.classList.add("active");
+
+        }
+
 
         friend.addEventListener("click", () => {
 
-            // Save current draft
+
             if (currentFriend) {
 
                 drafts[currentFriend._id] =
@@ -319,42 +331,41 @@ function displayUsers() {
             }
 
 
-            // Select current friend
             currentFriend = user;
-            
-            container.classList.add("chat-open");
 
-            // Clear typing indicator
+            container.classList.add(
+                "chat-open"
+            );
+
+
             typingStatus.innerHTML = "";
 
             typingStatus.style.display =
                 "none";
 
 
-            // Restore draft
             messageInput.value =
                 drafts[currentFriend._id] || "";
 
-
-            // Remove active class from all friends
             document
                 .querySelectorAll(".friend")
                 .forEach(item => {
 
-                    item.classList.remove("active");
+                    item.classList.remove(
+                        "active"
+                    );
 
                 });
 
-
-            // Add active class
             friend.classList.add("active");
 
-
-            // Close contact info panel
-            infoPanel.classList.remove("open");
+            infoPanel.classList.remove(
+                "open"
+            );
 
 
             // Update chat
+
             updateChatHeader();
 
             loadContactInfo();
@@ -364,36 +375,21 @@ function displayUsers() {
         });
 
 
+        // Add friend to list
+
         friendsList.appendChild(friend);
-
-
-        // Select first friend automatically
-        if (index === 0) {
-
-            currentFriend = user;
-
-            friend.classList.add("active");
-
-        }
 
     });
 
-
-    // Load first friend
     if (currentFriend) {
 
         messageInput.value =
             drafts[currentFriend._id] || "";
 
-        updateChatHeader();
-
-        loadContactInfo();
-
-        loadMessages();
-
     }
 
 }
+
 
 function updateChatHeader() {
 
